@@ -1,6 +1,7 @@
 package com.company.hr.attendance.entity;
 
 import com.company.hr.employee.entity.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +21,8 @@ public class AttendanceLog {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "employeeCode")
+    @JsonIgnore
     private Employee employee;
 
     private String timeStamp;
