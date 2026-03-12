@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,9 +28,7 @@ public class EmployeeSalary {
 
     @OneToOne
     @JoinColumn(name = "employee_id")
-    @Column(unique = true,nullable = false)
     private Employee employee;
-
 
     @OneToOne
     @JoinColumn(name = "overTimeRule_id")
