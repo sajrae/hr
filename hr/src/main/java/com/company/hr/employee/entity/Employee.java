@@ -1,21 +1,17 @@
 package com.company.hr.employee.entity;
 
-import com.company.hr.attendance.entity.AttendanceLog;
 import com.company.hr.payroll.entity.PayrollSchedule;
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 
 @Entity
 @Getter
@@ -30,14 +26,17 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "department_id")
+    @JsonIgnore
     private Department department;
 
     @ManyToOne
     @JoinColumn(name = "position_id")
+    @JsonIgnore
     private Position position;
 
     @ManyToOne
     @JoinColumn(name = "payrollScheduleCode_id")
+    @JsonIgnore
     private PayrollSchedule payrollSchedule;
 
     private String firstName;
