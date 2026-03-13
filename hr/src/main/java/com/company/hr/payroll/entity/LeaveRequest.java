@@ -9,10 +9,12 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
-public class Payroll {
+public class LeaveRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -22,21 +24,13 @@ public class Payroll {
     private Employee employee;
 
     @ManyToOne
-    private PayrollRun payrollRun;
+    private LeaveType leaveType;
 
-    private Double basicSalary;
+    private LocalDate startDate;
 
-    private Double totalAllowance;
+    private LocalDate endDate;
 
-    private Double overtimePay;
+    private String status;
 
-    private Double holidayPay;
-
-    private Double leaveDeduction;
-
-    private Double lateDeduction;
-
-    private Double tax;
-
-    private Double netSalary;
+    private String reason;
 }
