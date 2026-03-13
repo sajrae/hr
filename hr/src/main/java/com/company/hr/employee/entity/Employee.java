@@ -1,7 +1,6 @@
 package com.company.hr.employee.entity;
 
 import com.company.hr.payroll.entity.PayrollSchedule;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,17 +25,14 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "department_id")
-    @JsonIgnore
     private Department department;
 
     @ManyToOne
     @JoinColumn(name = "position_id")
-    @JsonIgnore
     private Position position;
 
     @ManyToOne
     @JoinColumn(name = "payrollScheduleCode_id")
-    @JsonIgnore
     private PayrollSchedule payrollSchedule;
 
     private String firstName;
@@ -49,7 +45,7 @@ public class Employee {
     @PrePersist
     public void generateEmployeeCode() {
         if (employeeCode == null) {
-            employeeCode = "TEMP-" + System.currentTimeMillis();
+            employeeCode = firstName.toLowerCase()+"."+lastName.toLowerCase();
         }
     }
 }

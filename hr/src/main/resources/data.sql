@@ -50,9 +50,9 @@ VALUES
 INSERT INTO employee (id, email, employee_code,first_name,last_name,status,hire_date,phone,department_id,
                       payroll_schedule_code_id,position_id)
 VALUES
-    (1,'test',1,'John','Doe','active','2026-03-12','123',
+    (1,'test','1','John','Doe','active','2026-03-12','123',
      1,1,1),
-    (2,'test',1,'Jane','Doe','active','2026-03-12','123',
+    (2,'test','2','Jane','Doe','active','2026-03-12','123',
      1,2,1)
     ON CONFLICT DO NOTHING;
 
