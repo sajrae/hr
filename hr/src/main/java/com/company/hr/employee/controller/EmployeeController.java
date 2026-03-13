@@ -1,5 +1,6 @@
 package com.company.hr.employee.controller;
 
+import com.company.hr.common.response.ApiResponse;
 import com.company.hr.employee.dto.AssignSalaryRequest;
 import com.company.hr.employee.dto.EmployeeCompensationResponse;
 import com.company.hr.employee.service.EmployeeService;
@@ -24,20 +25,26 @@ public class EmployeeController {
     }
 
     @PostMapping("/{code}/salary")
-    public ResponseEntity<String> assignSalary(
+    public ResponseEntity<ApiResponse<String>> assignSalary(
             @PathVariable String code,
-            @Valid @RequestBody AssignSalaryRequest salaryRequest){
-        employeeService.assignSalary(code,salaryRequest);
+            @Valid @RequestBody AssignSalaryRequest salaryRequest) {
+        try {
+            employeeService.assignSalary(code, salaryRequest);
+            return ResponseEntity.ok(ApiResponse.success("Salary Assigned", null));
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(ex.getMessage()));
+        }
 
-        return ResponseEntity.ok("Salary Assigned");
+
     }
 
     @GetMapping("/{code}/compensation")
-    public ResponseEntity<EmployeeCompensationResponse> getCompensation(
+    public ResponseEntity<ApiResponse<EmployeeCompensationResponse>> getCompensation(
             @PathVariable String code) {
-
-        return ResponseEntity.ok(
-                employeeService.getCompensation(code)
-        );
+        try {
+            return ResponseEntity.ok(ApiResponse.success("Employee Fetched", employeeService.getCompensation(code)));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
     }
 }

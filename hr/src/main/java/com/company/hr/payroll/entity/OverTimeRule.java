@@ -1,5 +1,6 @@
 package com.company.hr.payroll.entity;
 
+import com.company.hr.common.BaseEntity;
 import com.company.hr.employee.entity.EmployeeSalary;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class OverTimeRule {
+public class OverTimeRule extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

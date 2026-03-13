@@ -1,5 +1,6 @@
 package com.company.hr.employee.entity;
 
+import com.company.hr.common.BaseEntity;
 import com.company.hr.payroll.entity.PayrollSchedule;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Employee {
+public class Employee extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +46,7 @@ public class Employee {
     @PrePersist
     public void generateEmployeeCode() {
         if (employeeCode == null) {
-            employeeCode = firstName.toLowerCase()+"."+lastName.toLowerCase();
+            employeeCode = firstName.toLowerCase() + "." + lastName.toLowerCase();
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.company.hr.attendance.entity;
 
+import com.company.hr.common.BaseEntity;
 import com.company.hr.employee.entity.Employee;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Setter
 @Getter
-public class Attendance {
+public class Attendance extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
