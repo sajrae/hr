@@ -83,7 +83,7 @@ public class EmployeeService {
         employeeSalaryRepository.save(employeeSalary);
     }
 
-    public EmployeeCompensationResponse getCompensation(final String code){
+    public EmployeeCompensationResponse getCompensation(final String code) {
         final Employee employee = getEmployeeById(code);
         final EmployeeSalary employeeSalary = employeeSalaryRepository.findByEmployeeId(employee.getId())
                 .orElseThrow(() -> new RuntimeException("No Employee Salary"));
