@@ -1,5 +1,6 @@
 package com.company.hr.employee.entity;
 
+import com.company.hr.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Department {
+public class Department extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

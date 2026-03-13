@@ -1,5 +1,6 @@
 package com.company.hr.employee.entity;
 
+import com.company.hr.common.BaseEntity;
 import com.company.hr.payroll.entity.OverTimeRule;
 import com.company.hr.payroll.entity.TaxRule;
 
@@ -19,7 +20,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-public class EmployeeSalary {
+public class EmployeeSalary extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

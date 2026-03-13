@@ -1,5 +1,6 @@
 package com.company.hr.employee.entity;
 
+import com.company.hr.common.BaseEntity;
 import com.company.hr.payroll.entity.AllowanceType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-public class EmployeeAllowance {
+public class EmployeeAllowance extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
