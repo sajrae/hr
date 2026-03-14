@@ -1,6 +1,6 @@
-package com.company.hr.device.entity;
+package com.company.hr.core.entity;
 
-import com.company.hr.core.entity.AttendanceLog;
+import com.company.hr.common.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,9 +12,9 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Setter
 @Getter
-public class Device {
+@Setter
+public class AllowanceType extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -22,10 +22,8 @@ public class Device {
 
     private String name;
 
-    private String location;
+    private Boolean taxable;
 
-    private String ipAddress;
-
-    @OneToMany(mappedBy = "device")
-    private List<AttendanceLog> attendanceLogs;
+    @OneToMany(mappedBy = "allowanceType")
+    private List<EmployeeAllowance> employeeAllowances;
 }
