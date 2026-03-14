@@ -7,12 +7,18 @@ VALUES
 ON CONFLICT DO NOTHING;
 
 -- Leave Types
-INSERT INTO leave_type (id, name, is_paid)
-VALUES
-    (1, 'Annual Leave', true),
-    (2, 'Sick Leave', true),
-    (3, 'Unpaid Leave', false),
-    (4, 'Bereavement Leave', true)
+INSERT INTO leave_type (id, name, is_paid, max_days_per_year)
+VALUES (1, 'Annual Leave', true, 12),
+       (2, 'Sick Leave', true, 15),
+       (3, 'Unpaid Leave', false, 0),
+       (4, 'Bereavement Leave', true, 10)
+ON CONFLICT DO NOTHING;
+
+-- Leave Types
+INSERT INTO deduction_type (id, name, mandatory, rate)
+VALUES (1, 'SSS', true, null),
+       (2, 'PhilHealth', true, 100),
+       (3, 'Pag-IBIG', false, 300)
 ON CONFLICT DO NOTHING;
 
 -- Overtime Rules
