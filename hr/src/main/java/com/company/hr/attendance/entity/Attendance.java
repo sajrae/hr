@@ -2,6 +2,7 @@ package com.company.hr.attendance.entity;
 
 import com.company.hr.common.BaseEntity;
 import com.company.hr.employee.entity.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Setter
@@ -23,17 +24,20 @@ public class Attendance extends BaseEntity {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     private Employee employee;
 
     private LocalDate date;
 
-    private LocalDateTime timeIn;
+    private LocalTime timeIn;
 
-    private LocalDateTime timeOut;
+    private LocalTime timeOut;
 
     private Double workedHours;
 
     private Double overtimeHours;
 
     private Integer lateMinutes;
+
+    private boolean underTime;
 }

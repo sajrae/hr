@@ -32,7 +32,13 @@ VALUES
     (4, 'Housing', true)
 ON CONFLICT DO NOTHING;
 
-
+-- Global Settings
+INSERT INTO system_settings (description,setting_key, setting_value)
+VALUES
+    ('Start of work day', 'work.start.time', '09:00'),
+    ('Overtime begins after this time', 'over.time.start', '18:00'),
+    ('Minimum hours required per day', 'minimum.work.hours', 8)
+ON CONFLICT DO NOTHING;
 
 -- Department
 INSERT INTO department (id, code, description,name)
