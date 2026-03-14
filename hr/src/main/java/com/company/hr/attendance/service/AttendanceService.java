@@ -92,6 +92,9 @@ public class AttendanceService {
         response.setLateMinutes(attendance.getLateMinutes());
         response.setOverTimeHours(attendance.getOvertimeHours());
         response.setUnderTime(attendance.isUnderTime());
+        response.setDate(attendance.getDate());
+        response.setTimeIn(attendance.getTimeIn());
+        response.setTimeOut(attendance.getTimeOut());
 
         return response;
     }
