@@ -3,7 +3,8 @@ INSERT INTO payroll_schedule (id, name, payroll_type, pay_days)
 VALUES
     (1, 'Weekly', 'WEEKLY', 'SATURDAY'),
     (2, 'Semi Monthly', 'SEMI_MONTHLY', '15,30'),
-    (3, 'Monthly', 'MONTHLY', '30')
+    (3, 'Monthly', 'MONTHLY', '30'),
+    (4, 'Daily', 'DAILY', 'N\A')
 ON CONFLICT DO NOTHING;
 
 -- Leave Types
@@ -14,11 +15,16 @@ VALUES (1, 'Annual Leave', true, 12),
        (4, 'Bereavement Leave', true, 10)
 ON CONFLICT DO NOTHING;
 
--- Leave Types
+-- Deduction Types
 INSERT INTO deduction_type (id, name, mandatory, rate)
 VALUES (1, 'SSS', true, null),
        (2, 'PhilHealth', true, 100),
        (3, 'Pag-IBIG', false, 300)
+ON CONFLICT DO NOTHING;
+
+-- Deduction Types
+INSERT INTO deduction_bracket (id, deduction_type_id, min_salary, max_salary, contribution)
+VALUES (1, 1, 0, 50000, 3500)
 ON CONFLICT DO NOTHING;
 
 -- Overtime Rules

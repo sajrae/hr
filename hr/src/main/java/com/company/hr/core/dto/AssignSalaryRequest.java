@@ -6,13 +6,15 @@ import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class AssignSalaryRequest {
 
     @NotNull
     @Positive
-    private Double baseSalary;
+    private BigDecimal baseSalary;
 
     @NotNull
     private Long taxRule;

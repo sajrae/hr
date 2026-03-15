@@ -1,30 +1,19 @@
-package com.company.hr.core.entity;
+package com.company.hr.core.dto;
 
-import com.company.hr.common.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Entity
-@Getter
 @Setter
-public class Payroll extends BaseEntity {
+@Getter
+public class PayrollRecordDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
-    private Employee employee;
+    private EmployeeDto employeeDto;
 
-    @ManyToOne
-    private PayrollPeriod payrollPeriod;
+    private PayrollPeriodDto periodDto;
 
     private BigDecimal basicSalary;
 
@@ -46,7 +35,9 @@ public class Payroll extends BaseEntity {
 
     private BigDecimal tax;
 
+
     private BigDecimal grossSalary;
 
     private BigDecimal netSalary;
 }
+

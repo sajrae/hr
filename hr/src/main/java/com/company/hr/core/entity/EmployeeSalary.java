@@ -14,6 +14,7 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -37,6 +38,6 @@ public class EmployeeSalary extends BaseEntity {
     @JoinColumn(name = "taxRule_id")
     private TaxRule taxRule;
 
-    private double baseSalary;
+    private BigDecimal baseSalary;
     private LocalDate effectiveDate;
 }
