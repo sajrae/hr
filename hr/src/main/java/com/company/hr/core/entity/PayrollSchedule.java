@@ -33,6 +33,4 @@ public class PayrollSchedule extends BaseEntity {
     @OneToMany(mappedBy = "payrollSchedule")
     private List<Employee> employees;
 
-    @OneToMany(mappedBy = "payrollSchedule")
-    private List<PayrollRun> payrollRuns;
 }
