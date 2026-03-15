@@ -1,7 +1,7 @@
 package com.company.hr.core.entity;
 
 import com.company.hr.common.BaseEntity;
-import com.company.hr.common.enums.PayrollType;
+import com.company.hr.common.enums.PayrollPeriodType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,25 +12,24 @@ import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
-@Entity
-public class PayrollSchedule extends BaseEntity {
+public class PayrollPeriod extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @OneToMany(mappedBy = "payrollPeriod")
+    private List<Payroll> payroll;
+
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
-    private PayrollType payrollType;
-
-    private String payDays;
-
-    @OneToMany(mappedBy = "payrollSchedule")
-    private List<Employee> employees;
-
+    private PayrollPeriodType status;
 }
