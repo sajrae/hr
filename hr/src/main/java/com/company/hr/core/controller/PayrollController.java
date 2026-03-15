@@ -5,8 +5,6 @@ import com.company.hr.core.dto.PayrollRecordDto;
 import com.company.hr.core.entity.Payroll;
 import com.company.hr.core.entity.PayrollPeriod;
 import com.company.hr.core.mapper.PayrollMapper;
-import com.company.hr.core.repository.PayrollPeriodRepository;
-import com.company.hr.core.repository.PayrollRepository;
 import com.company.hr.core.service.PayrollService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,19 +22,14 @@ import java.util.List;
 public class PayrollController {
 
     private final PayrollService payrollService;
-    private final PayrollRepository payrollRepository;
-    private final PayrollPeriodRepository periodRepository;
     private final PayrollMapper payrollMapper;
 
     @PostMapping("/run/{periodId}")
     public ResponseEntity<ApiResponse<String>> runPayroll(@PathVariable Long periodId) {
 
         try {
-            PayrollPeriod period = periodRepository.findById(periodId)
-                    .orElseThrow(() -> new RuntimeException("Payroll Period Not found"));
-
+            PayrollPeriod period = payrollService.getPeriod(periodId);
             payrollService.runPayroll(period);
-
             return ResponseEntity.ok(ApiResponse.success("Payroll processed successfully", period.getId().toString()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
@@ -47,13 +40,11 @@ public class PayrollController {
     public ResponseEntity<ApiResponse<List<PayrollRecordDto>>> getEmployeePayRoll(@PathVariable Long periodId) {
 
         try {
-            List<Payroll> records = payrollRepository.findByPayrollPeriodId(periodId);
-
+            List<Payroll> records = payrollService.getRecords(periodId);
             List<PayrollRecordDto> recordDTOS = records.stream()
                     .map(payrollMapper::convertPayroll)
                     .toList();
             return ResponseEntity.ok(ApiResponse.success("Employee Payroll", recordDTOS));
-
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
@@ -62,13 +53,11 @@ public class PayrollController {
     @GetMapping("/employee/{employeeId}/period/{periodId}")
     public ResponseEntity<ApiResponse<List<PayrollRecordDto>>> getEmployeeRecords(@PathVariable Long employeeId, @PathVariable Long periodId) {
         try {
-            List<Payroll> records = payrollRepository.findByEmployeeIdAndPayrollPeriodId(employeeId, periodId);
-
+            List<Payroll> records = payrollService.getRecords(employeeId, periodId);
             List<PayrollRecordDto> recordDTOS = records.stream()
                     .map(payrollMapper::convertPayroll)
                     .toList();
             return ResponseEntity.ok(ApiResponse.success("Employee Payroll", recordDTOS));
-
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }

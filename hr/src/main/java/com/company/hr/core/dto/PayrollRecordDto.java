@@ -35,7 +35,6 @@ public class PayrollRecordDto {
 
     private BigDecimal tax;
 
-
     private BigDecimal grossSalary;
 
     private BigDecimal netSalary;

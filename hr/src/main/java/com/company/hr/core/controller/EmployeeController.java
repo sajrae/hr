@@ -52,9 +52,10 @@ public class EmployeeController {
     public ResponseEntity<ApiResponse<String>> addEmployee(@Valid @RequestBody EmployeeRegistrationRequest request) {
         try {
             Employee employee = employeeMapper.toEntity(request);
-            if (!employeeService.duplicateEmployee(employee)) {
-                employeeService.saveEmployee(employee);
+            if (employeeService.duplicateEmployee(employee)) {
+                throw new IllegalStateException("Employee Duplicate");
             }
+            employeeService.saveEmployee(employee);
             return ResponseEntity.ok(ApiResponse.success("Employee registration", null));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
