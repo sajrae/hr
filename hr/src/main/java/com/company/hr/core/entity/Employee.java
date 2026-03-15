@@ -44,7 +44,7 @@ public class Employee extends BaseEntity {
     private String hireDate;
 
     @PrePersist
-    public void generateEmployeeCode() {
+    public void generateEmployeeCodeAndId() {
         if (employeeCode == null) {
             employeeCode = firstName.toLowerCase() + "." + lastName.toLowerCase();
         }

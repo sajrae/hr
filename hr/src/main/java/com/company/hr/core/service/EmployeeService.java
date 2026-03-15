@@ -97,8 +97,17 @@ public class EmployeeService {
         return response;
     }
 
+
     private Employee getEmployeeById(String code) {
         return employeeRepository.findByEmployeeCode(code).orElseThrow(() -> new RuntimeException("No Employee Found"));
     }
 
+    public void saveEmployee(final Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    public boolean duplicateEmployee(final Employee employee) {
+
+        return employeeRepository.findByEmployeeCode(employee.getFirstName() + "." + employee.getLastName()).isPresent();
+    }
 }

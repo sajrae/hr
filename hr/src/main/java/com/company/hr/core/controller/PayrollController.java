@@ -50,7 +50,7 @@ public class PayrollController {
             List<Payroll> records = payrollRepository.findByPayrollPeriodId(periodId);
 
             List<PayrollRecordDto> recordDTOS = records.stream()
-                    .map(payrollMapper::converPayroll)
+                    .map(payrollMapper::convertPayroll)
                     .toList();
             return ResponseEntity.ok(ApiResponse.success("Employee Payroll", recordDTOS));
 
@@ -65,7 +65,7 @@ public class PayrollController {
             List<Payroll> records = payrollRepository.findByEmployeeIdAndPayrollPeriodId(employeeId, periodId);
 
             List<PayrollRecordDto> recordDTOS = records.stream()
-                    .map(payrollMapper::converPayroll)
+                    .map(payrollMapper::convertPayroll)
                     .toList();
             return ResponseEntity.ok(ApiResponse.success("Employee Payroll", recordDTOS));
 

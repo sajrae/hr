@@ -22,6 +22,11 @@ VALUES (1, 'SSS', true, null),
        (3, 'Pag-IBIG', false, 300)
 ON CONFLICT DO NOTHING;
 
+-- Tax Rules
+INSERT INTO tax_rule (id, name, description, rate)
+VALUES (1, 'VAT', 'Goverment Tax', 0.25)
+ON CONFLICT DO NOTHING;
+
 -- Deduction Types
 INSERT INTO deduction_bracket (id, deduction_type_id, min_salary, max_salary, contribution)
 VALUES (1, 1, 0, 50000, 3500)

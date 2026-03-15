@@ -42,7 +42,7 @@ public class PayrollMapper {
         return dto;
     }
 
-    public PayrollRecordDto converPayroll(Payroll payroll) {
+    public PayrollRecordDto convertPayroll(Payroll payroll) {
 
         if (payroll == null) {
             return null;
