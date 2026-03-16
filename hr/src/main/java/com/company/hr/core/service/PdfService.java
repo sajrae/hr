@@ -1,8 +1,10 @@
 package com.company.hr.core.service;
 
+import com.company.hr.common.SystemSettingService;
 import com.company.hr.core.entity.Payroll;
 import com.company.hr.core.entity.PayrollPeriod;
 import com.company.hr.core.entity.Payslip;
+import lombok.RequiredArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -15,7 +17,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 @Service
+@RequiredArgsConstructor
 public class PdfService {
+
+    private SystemSettingService settingService;
 
     public byte[] generatePayslipPDF(Payslip payslip) throws IOException {
 
@@ -23,26 +28,29 @@ public class PdfService {
 
         try (PDDocument document = new PDDocument()) {
 
+            PDType1Font font = new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD);
+
             PDPage page = new PDPage();
             document.addPage(page);
 
             PDPageContentStream content = new PDPageContentStream(document, page);
 
-            content.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 16);
+            content.setFont(font, 16);
+
 
             content.beginText();
             content.newLineAtOffset(50, 750);
             content.showText("Dalandan Scam Company");
             content.endText();
 
-            content.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 14);
+            content.setFont(font, 14);
 
             content.beginText();
             content.newLineAtOffset(50, 720);
             content.showText("Payslip");
             content.endText();
 
-            content.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 12);
+            content.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 12);
 
             String fullName = payslip.getEmployee().getLastName() + "," + payslip.getEmployee().getFirstName();
             content.beginText();

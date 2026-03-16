@@ -16,14 +16,14 @@ public class SystemSettingService {
 
     private final SystemSettingRepository systemSettingRepository;
 
-    private Map<String,String> settingsCache = new HashMap<>();
+    private Map<String, String> settingsCache = new HashMap<>();
 
     public SystemSettingService(SystemSettingRepository systemSettingRepository) {
         this.systemSettingRepository = systemSettingRepository;
     }
 
     @PostConstruct
-    public void loadSettings(){
+    public void loadSettings() {
         List<SystemSettings> settings = systemSettingRepository.findAll();
 
         settingsCache = settings.stream()
@@ -53,5 +53,15 @@ public class SystemSettingService {
         return LocalDate.parse(settingsCache.get(key));
     }
 
+    public List<SystemSettings> findAll() {
+        return systemSettingRepository.findAll();
+    }
 
+    public void save(SystemSettings systemSettings) {
+        systemSettingRepository.save(systemSettings);
+    }
+
+    public void delete(SystemSettings systemSettings) {
+        systemSettingRepository.delete(systemSettings);
+    }
 }

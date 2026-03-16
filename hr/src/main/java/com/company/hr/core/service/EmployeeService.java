@@ -57,6 +57,10 @@ public class EmployeeService {
         return departmentRepository.findAll();
     }
 
+    public List<PayrollSchedule> getAllPayroll() {
+        return payrollScheduleRepository.findAll();
+    }
+
     public void assignSalary(final String code, final AssignSalaryRequest salaryRequest) {
 
         Employee employee = getEmployeeById(code);
@@ -109,5 +113,17 @@ public class EmployeeService {
     public boolean duplicateEmployee(final Employee employee) {
 
         return employeeRepository.findByEmployeeCode(employee.getFirstName() + "." + employee.getLastName()).isPresent();
+    }
+
+    public List<Employee> findAll() {
+        return employeeRepository.findAll();
+    }
+
+    public void save(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    public void delete(Employee employee) {
+        employeeRepository.delete(employee);
     }
 }
