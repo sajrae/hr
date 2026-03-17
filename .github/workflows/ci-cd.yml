@@ -21,10 +21,11 @@ jobs:
        java-version: '21'
 
     - name: Build and test
+      working-directory: ./hr
       run: mvn clean package -Dvaadin.productionMode=true -DskipTests
 
     - name: Build Docker image
-      run: docker build -t hr-backoffice .
+      run: docker build -t hr-backoffice ./hr
 
     - name: Login to DockerHub
       uses: docker/login-action@v2
