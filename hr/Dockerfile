@@ -1,6 +1,13 @@
-FROM eclipse-temurin:21-jdk-alpine
-LABEL authors="Admin"
+# Stage 1: Build
+FROM maven:3.9.11-eclipse-temurin-21 AS build
 WORKDIR /app
-COPY target/*.jar app.jar
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -Dvaadin.productionMode=true -DskipTests
+
+# Stage 2: Run
+FROM eclipse-temurin:21-jdk-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8081
-ENTRYPOINT ["java", "-Dvaadin.productionMode=true", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
