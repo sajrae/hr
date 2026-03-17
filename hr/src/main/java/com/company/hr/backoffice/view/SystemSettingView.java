@@ -11,10 +11,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.RolesAllowed;
 
-
+@RolesAllowed("ADMIN")
 @Route(value = "/backoffice/config", layout = MainLayout.class)
-
 public class SystemSettingView extends VerticalLayout {
 
     private final transient SystemSettingService settingService;

@@ -5,6 +5,10 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
 @RolesAllowed("ADMIN")
-@Route(value = "/backoffice/department", layout = MainLayout.class)
-public class DepartmentView extends VerticalLayout {
+@Route(value = "", layout = MainLayout.class)
+public class MainView extends VerticalLayout {
+
+    public MainView() {
+        add("Welcome to HR Backoffice");
+    }
 }
