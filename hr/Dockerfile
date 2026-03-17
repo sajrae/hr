@@ -1,6 +1,11 @@
-FROM eclipse-temurin:21-jdk-alpine
-LABEL authors="Admin"
+FROM maven:3.9.11-eclipse-temurin-21
+
 WORKDIR /app
-COPY target/*.jar app.jar
+
+COPY . .
+
+RUN mvn clean package -Dvaadin.productionMode=true -DskipTests
+
 EXPOSE 8081
-ENTRYPOINT ["java", "-Dvaadin.productionMode=true", "-jar", "app.jar"]
+
+ENTRYPOINT ["java", "-jar", "target/hr-0.0.1-SNAPSHOT.jar"]
