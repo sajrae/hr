@@ -37,11 +37,23 @@ public class SystemSettingService {
         return settingsCache.get(key);
     }
 
+    public String get(String key, String defaultValue) {
+        return settingsCache.get(key);
+    }
+
     public Boolean getBoolean(String key) {
         return Boolean.parseBoolean(settingsCache.get(key));
     }
 
+    public Boolean getBoolean(String key, Boolean defaultValue) {
+        return Boolean.parseBoolean(settingsCache.get(key));
+    }
+
     public int getInt(String key) {
+        return Integer.parseInt(settingsCache.get(key));
+    }
+
+    public int getInt(String key, int defaultValue) {
         return Integer.parseInt(settingsCache.get(key));
     }
 

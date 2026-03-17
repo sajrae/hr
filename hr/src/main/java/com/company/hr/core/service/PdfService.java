@@ -1,6 +1,7 @@
 package com.company.hr.core.service;
 
 import com.company.hr.common.SystemSettingService;
+import com.company.hr.common.constants.GlobalConstants;
 import com.company.hr.core.entity.Payroll;
 import com.company.hr.core.entity.PayrollPeriod;
 import com.company.hr.core.entity.Payslip;
@@ -37,10 +38,11 @@ public class PdfService {
 
             content.setFont(font, 16);
 
+            final String companyName = settingService.get(GlobalConstants.COMPANY_NAME, "Company A");
 
             content.beginText();
             content.newLineAtOffset(50, 750);
-            content.showText("Dalandan Scam Company");
+            content.showText(companyName);
             content.endText();
 
             content.setFont(font, 14);
