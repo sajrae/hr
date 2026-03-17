@@ -14,10 +14,11 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
-
+@RolesAllowed("ADMIN")
 @Route(value = "/backoffice/employees", layout = MainLayout.class)
 public class EmployeeView extends VerticalLayout {
 
