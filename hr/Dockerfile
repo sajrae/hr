@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY . .
 
+WORKDIR /app/hr
+
 RUN mvn clean package -Dvaadin.productionMode=true -DskipTests
 
 EXPOSE 8081
