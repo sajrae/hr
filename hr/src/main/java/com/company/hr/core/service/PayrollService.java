@@ -10,6 +10,7 @@ import com.company.hr.core.entity.EmployeeSalary;
 import com.company.hr.core.entity.Payroll;
 import com.company.hr.core.entity.PayrollPeriod;
 import com.company.hr.core.entity.PayrollSchedule;
+import com.company.hr.core.entity.Payslip;
 import com.company.hr.core.repository.AttendanceRepository;
 import com.company.hr.core.repository.EmployeeLeaveRepository;
 import com.company.hr.core.repository.EmployeeRepository;
@@ -48,6 +49,25 @@ public class PayrollService {
     private final EmployeeLeaveRepository leaveRepository;
     private final DeductionService deductionService;
     private final PayrollPeriodRepository periodRepository;
+
+
+    public List<Payroll> getRecords(Long employeeId, Long periodId) {
+        return payrollRepository.findByEmployeeIdAndPayrollPeriodId(employeeId, periodId);
+    }
+
+    public List<Payroll> getRecords(Long periodId) {
+        return payrollRepository.findByPayrollPeriodId(periodId);
+    }
+
+    public PayrollPeriod getPeriod(Long periodId) {
+        return periodRepository.findById(periodId)
+                .orElseThrow(() -> new RuntimeException("Payroll Period Not found"));
+    }
+
+    public Payroll getRecord(Long payrollId) {
+        return payrollRepository.findById(payrollId)
+                .orElseThrow(() -> new RuntimeException("Payroll not found"));
+    }
 
     public void runPayroll(final PayrollPeriod period) {
 
@@ -110,6 +130,7 @@ public class PayrollService {
         int minimumWorkHours = settingService.getInt(GlobalConstants.MINIMUM_WORK_HOURS);
         int attendanceDays = attendanceList.size();
         log.info("Attendance Days for Employee: {}", attendanceDays);
+        log.info("Working Days Range: {} - {}", period.getStartDate(), period.getEndDate());
         int workingDays = calculateWorkingDays(period.getStartDate(), period.getEndDate());
         log.info("Working Days by Period: {}", workingDays);
         if (workingDays <= 0) {
@@ -268,5 +289,19 @@ public class PayrollService {
             semiMonths.add(secondHalf);
         }
         return semiMonths;
+    }
+
+    public Payslip processPayslip(final Payroll payroll) {
+        Payslip payslip = new Payslip();
+        payslip.setPayroll(payroll);
+        payslip.setEmployee(payroll.getEmployee());
+
+        BigDecimal totaDeduction = payroll.getLateDeduction().add(payroll.getLeaveDeduction());
+        payslip.setTotalDeductions(totaDeduction);
+
+        payslip.setGrossSalary(payroll.getGrossSalary());
+        payslip.setNetSalary(payroll.getNetSalary());
+
+        return payslip;
     }
 }

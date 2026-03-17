@@ -133,7 +133,7 @@ CREATE TABLE public.employee
     email                    character varying(255),
     employee_code            character varying(255),
     first_name               character varying(255),
-    hire_date                character varying(255),
+    hire_date timestamp(6) without time zone,
     last_name                character varying(255),
     phone                    character varying(255),
     status                   character varying(255),
@@ -391,6 +391,25 @@ CREATE TABLE public.tax_rule
     description   character varying(255),
     name          character varying(255),
     updated_by    character varying(255)
+);
+
+--
+-- TOC entry 262 (class 1259 OID 18404)
+-- Name: payslip; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.payslip
+(
+    id               bigint NOT NULL,
+    created_by       character varying(255),
+    creation_time    timestamp(6) without time zone,
+    modified_time    timestamp(6) without time zone,
+    updated_by       character varying(255),
+    gross_salary     numeric(38, 2),
+    net_salary       numeric(38, 2),
+    total_deductions numeric(38, 2),
+    employee_id      bigint,
+    payroll_id       bigint
 );
 
 
