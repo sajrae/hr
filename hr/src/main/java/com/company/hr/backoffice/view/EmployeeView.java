@@ -13,6 +13,8 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
@@ -20,15 +22,19 @@ import java.util.List;
 
 @RolesAllowed("ADMIN")
 @Route(value = "/backoffice/employees", layout = MainLayout.class)
-public class EmployeeView extends VerticalLayout {
+public class EmployeeView extends VerticalLayout implements BeforeEnterObserver {
 
     private final Grid<Employee> grid = new Grid<>(Employee.class);
+
     private final transient EmployeeService employeeService;
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        grid.setItems(employeeService.findAll());
+    }
 
     public EmployeeView(EmployeeService employeeService) {
         this.employeeService = employeeService;
-
-
         setSizeFull();
 
         // --- Grid setup ---
@@ -96,7 +102,7 @@ public class EmployeeView extends VerticalLayout {
         dialog.add(form);
 
         BackofficeUtil.bindSaveDeleteButtons(form.getSaveButton(), form.getDeleteButton(),
-                grid, employee, employeeService::save, employeeService::delete, dialog);
+                grid, employee, employeeService::save, employeeService::delete, dialog, employeeService::findAll);
 
         dialog.open();
     }

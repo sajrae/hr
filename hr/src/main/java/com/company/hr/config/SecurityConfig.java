@@ -24,6 +24,10 @@ public class SecurityConfig extends VaadinWebSecurity {
                 .requestMatchers("/api/auth/**").permitAll()
         );
 
+        http.formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true));
+
         super.configure(http);
 
         // Vaadin login view

@@ -5,7 +5,9 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class BackofficeUtil {
 
@@ -57,17 +59,18 @@ public class BackofficeUtil {
             T entity,
             Consumer<T> saveAction,
             Consumer<T> deleteAction,
-            Dialog dialog
+            Dialog dialog,
+            Supplier<List<T>> refreshSupplier
     ) {
         saveButton.addClickListener(e -> {
             saveAction.accept(entity);
-            grid.setItems(grid.getDataProvider().fetch(new com.vaadin.flow.data.provider.Query<>()).toList()); // refresh grid
+            grid.setItems(refreshSupplier.get()); // refresh grid
             dialog.close();
         });
 
         deleteButton.addClickListener(e -> {
             deleteAction.accept(entity);
-            grid.setItems(grid.getDataProvider().fetch(new com.vaadin.flow.data.provider.Query<>()).toList()); // refresh grid
+            grid.setItems(refreshSupplier.get()); // refresh grid
             dialog.close();
         });
     }

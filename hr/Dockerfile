@@ -1,13 +1,9 @@
-FROM maven:3.9.11-eclipse-temurin-21
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
-COPY . .
-
-WORKDIR /app/hr
-
-RUN mvn clean package -Dvaadin.productionMode=true -DskipTests
+COPY target/hr-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8081
 
-ENTRYPOINT ["java", "-jar", "target/hr-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
