@@ -10,15 +10,22 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
 @RolesAllowed("ADMIN")
 @Route(value = "/backoffice/config", layout = MainLayout.class)
-public class SystemSettingView extends VerticalLayout {
+public class SystemSettingView extends VerticalLayout implements BeforeEnterObserver {
 
     private final transient SystemSettingService settingService;
     private final Grid<SystemSettings> grid = new Grid<>(SystemSettings.class);
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        grid.setItems(settingService.findAll());
+    }
 
     public SystemSettingView(SystemSettingService settingService) {
 
@@ -64,7 +71,7 @@ public class SystemSettingView extends VerticalLayout {
         dialog.add(form);
 
         BackofficeUtil.bindSaveDeleteButtons(form.getSaveButton(), form.getDeleteButton(),
-                grid, systemSettings, settingService::save, settingService::delete, dialog);
+                grid, systemSettings, settingService::save, settingService::delete, dialog, settingService::findAll);
 
         dialog.open();
     }
