@@ -21,7 +21,7 @@ public class SecurityConfig extends VaadinWebSecurity {
 
         // Allow public endpoints if needed (API for Flutter later)
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/**").permitAll()
         );
 
         http.formLogin(form -> form

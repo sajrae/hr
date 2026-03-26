@@ -30,11 +30,11 @@ public class EmployeeSalary extends BaseEntity {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "overTimeRule_id")
     private OverTimeRule overTimeRule;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "taxRule_id")
     private TaxRule taxRule;
 

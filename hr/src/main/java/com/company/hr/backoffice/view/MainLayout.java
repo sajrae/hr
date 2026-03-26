@@ -20,6 +20,7 @@ public class MainLayout extends AppLayout {
         SideNav nav = new SideNav();
 
         nav.addItem(createNavItem("Employees", EmployeeView.class));
+        nav.addItem(createNavItem("Employee Salary", EmployeeSalaryView.class));
         nav.addItem(createNavItem("Department", DepartmentView.class));
         nav.addItem(createNavItem("System Config", SystemSettingView.class));
 
