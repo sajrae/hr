@@ -16,11 +16,13 @@ import com.company.hr.core.entity.TaxRule;
 import com.company.hr.core.repository.OverTimeRuleRepository;
 import com.company.hr.core.repository.PayrollScheduleRepository;
 import com.company.hr.core.repository.TaxRuleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
@@ -30,16 +32,6 @@ public class EmployeeService {
     private final PayrollScheduleRepository payrollScheduleRepository;
     private final OverTimeRuleRepository overTimeRuleRepository;
     private final TaxRuleRepository taxRuleRepository;
-
-    public EmployeeService(EmployeeRepository employeeRepository, EmployeeSalaryRepository employeeSalaryRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository, PayrollScheduleRepository payrollScheduleRepository, OverTimeRuleRepository overTimeRuleRepository, TaxRuleRepository taxRuleRepository) {
-        this.employeeRepository = employeeRepository;
-        this.employeeSalaryRepository = employeeSalaryRepository;
-        this.positionRepository = positionRepository;
-        this.departmentRepository = departmentRepository;
-        this.payrollScheduleRepository = payrollScheduleRepository;
-        this.overTimeRuleRepository = overTimeRuleRepository;
-        this.taxRuleRepository = taxRuleRepository;
-    }
 
     public List<Employee> getEmployee() {
         return employeeRepository.findAll();
@@ -125,5 +117,23 @@ public class EmployeeService {
 
     public void delete(Employee employee) {
         employeeRepository.delete(employee);
+    }
+
+    public void saveSalary(EmployeeSalary employeeSalary, Employee employee) {
+        employeeSalary.setEmployee(employee);
+        employeeSalaryRepository.save(employeeSalary);
+    }
+
+    public void deleteSalary(EmployeeSalary employeeSalary) {
+        employeeSalary.setEmployee(null);
+        employeeSalaryRepository.delete(employeeSalary);
+    }
+
+    public List<OverTimeRule> getOverTime() {
+        return overTimeRuleRepository.findAll();
+    }
+
+    public List<TaxRule> getTaxRule() {
+        return taxRuleRepository.findAll();
     }
 }
